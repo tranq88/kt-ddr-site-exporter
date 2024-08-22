@@ -1,7 +1,7 @@
 # kt-ddr-site-exporter
 Export your scores from https://p.eagate.573.jp/game/ddr/ddra20/p into a BATCH-MANUAL JSON for use with [Kamaitachi](https://kamai.tachi.ac/).
 
-Currently only supports A20+.
+Currently only supports A20 PLUS.
 
 Inspired by [kt-chunithm-site-importer](https://github.com/beer-psi/kt-chunithm-site-importer).
 
