@@ -18,4 +18,4 @@ Inspired by [kt-chunithm-site-importer](https://github.com/beer-psi/kt-chunithm-
 
 # Notes
 - You need to be subscribed to the [e-amusement Basic Course](https://p.eagate.573.jp/payment/p/course_detail.html?course=eaBASIC) in order to access your full play data (and, in turn, make use of this script).
-- This script is primarily meant for backfilling PBs, as it makes a large number of requests in a short amount of time. Using an alternative score tracker such as https://3icecream.com for recent scores is preferable.
+- This script is primarily meant for backfilling PBs, as it makes a large number of requests in a short amount of time. Using an [alternative score tracker](https://3icecream.com/) or [manual input](https://gyoo.github.io/Sukoa) for recent scores is preferable.
