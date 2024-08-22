@@ -8,7 +8,7 @@ Inspired by [kt-chunithm-site-importer](https://github.com/beer-psi/kt-chunithm-
 # Installation
 
 1. Install a userscript manager (e.g. Greasemonkey or Tampermonkey).
-2. Create a new script with () as its contents.
+2. Create a new script with [kt-ddr-site-exporter.js](https://github.com/tranq88/kt-ddr-site-exporter/blob/main/kt-ddr-site-exporter.js) as its contents.
 
 # Usage
 
