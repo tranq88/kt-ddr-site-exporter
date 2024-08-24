@@ -1,11 +1,11 @@
 // ==UserScript==
 // @name         kt-ddr-site-exporter
 // @namespace    https://victoryu.dev/
-// @version      0.1
+// @version      0.2a
 // @description  Retrieve a JSON of your DDR scores in BATCH-MANUAL format.
 // @author       tranq
 // @match        https://p.eagate.573.jp/game/ddr/ddra20/p*
-// @match        (need someones a3 account pls) https://p.eagate.573.jp/game/ddr/ddra3/p/playdata/music_data_*
+// @match        https://p.eagate.573.jp/game/ddr/ddra3/p*
 // @grant        none
 
 // @require      https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js
@@ -32,7 +32,7 @@
   // if at any point konami decides to have more of SP or DP charts, this logic will fail
   const totalPages = {
     A20: 18,
-    A3: 0, // TODO: idk lol i never got to play a3 lol
+    A3: 23, // SP has 23 pages. For DP, change to 21
   };
 
   // button for exporting SP scores
@@ -106,8 +106,6 @@
    * @param {string} fullComboType
    */
   function computeLamp(grade, fullComboType) {
-    // TODO: how to handle ASSIST CLEAR/LIFE4? not sure what eagate returns?
-    // i'll just assume it's --- for now
     if (fullComboType == "---") {
       if (grade == "E") {
         return "FAILED";
@@ -119,11 +117,10 @@
       グッドフルコンボ: "FULL COMBO", // good full combo
       グレートフルコンボ: "GREAT FULL COMBO",
       パーフェクトフルコンボ: "PERFECT FULL COMBO",
-      "im not good enough for mfc": "MARVELOUS FULL COMBO", // TODO
+      マーベラスフルコンボ: "MARVELOUS FULL COMBO",
     };
 
-    // as a placeholder for mfc, return FAILED
-    return lampMap[fullComboType] || "FAILED";
+    return lampMap[fullComboType];
   }
 
   /**
@@ -159,6 +156,15 @@
     // get the song title
     let musicInfoTable = doc.getElementById("music_info");
     let songTitle = musicInfoTable.rows[0].cells[1].innerHTML.split("<br>")[0];
+
+    // for some reason, "&" still gets returned as "&amp;"
+    // this solution kinda sucks but changing the way we get the DOM is too much effort
+    songTitle = songTitle.replace(/&amp;/g, "&");
+
+    // some song titles have a trailing space for some reason wtf konami
+    // see: https://p.eagate.573.jp/game/ddr/ddra20/p/playdata/music_detail.html?index=6ObP9i0qi1ibbi9DOd6bOOOd6Q9dlPi6
+    // hopefully this solution is consistent with the kamaitachi db
+    songTitle = songTitle.replace(/\s+$/, ""); // remove only trailing spaces
 
     // get the score details table
     let musicDetailTable = doc.getElementById("music_detail_table");
