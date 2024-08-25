@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         kt-ddr-site-exporter
 // @namespace    https://victoryu.dev/
-// @version      0.2a
+// @version      1.0.0
 // @description  Retrieve a JSON of your DDR scores in BATCH-MANUAL format.
 // @author       tranq
 // @match        https://p.eagate.573.jp/game/ddr/ddra20/p*
