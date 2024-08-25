@@ -29,10 +29,15 @@
   };
 
   // each version has x pages of songs
-  // if at any point konami decides to have more of SP or DP charts, this logic will fail
   const totalPages = {
-    A20: 18,
-    A3: 23, // SP has 23 pages. For DP, change to 21
+    A20: {
+      SP: 18,
+      DP: 18,
+    },
+    A3: {
+      SP: 23,
+      DP: 21,
+    },
   };
 
   // button for exporting SP scores
@@ -235,7 +240,7 @@
     scores = []; // clear the scores array of any previous exports
 
     let baseUrl = baseUrls[gameVer][playtype];
-    let numPages = totalPages[gameVer];
+    let numPages = totalPages[gameVer][playtype];
 
     // disable both buttons while we're working
     disableButton(buttonSP);
