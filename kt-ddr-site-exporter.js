@@ -158,18 +158,24 @@
   async function parseScore(url) {
     const doc = await getDOM(url);
 
-    // get the song title
+    // get the song title and artist
     let musicInfoTable = doc.getElementById("music_info");
-    let songTitle = musicInfoTable.rows[0].cells[1].innerHTML.split("<br>")[0];
+    let songInfo = musicInfoTable.rows[0].cells[1].innerHTML.split("<br>");
 
-    // for some reason, "&" still gets returned as "&amp;"
-    // this solution kinda sucks but changing the way we get the DOM is too much effort
+    let songTitle = songInfo[0];
+    let songArtist = songInfo[1];
+
+    // because we're taking the innerHTML, "&" gets returned as "&amp;"
     songTitle = songTitle.replace(/&amp;/g, "&");
+    songArtist = songArtist.replace(/&amp;/g, "&");
 
     // some song titles have a trailing space for some reason wtf konami
     // see: https://p.eagate.573.jp/game/ddr/ddra20/p/playdata/music_detail.html?index=6ObP9i0qi1ibbi9DOd6bOOOd6Q9dlPi6
     // hopefully this solution is consistent with the kamaitachi db
     songTitle = songTitle.replace(/\s+$/, ""); // remove only trailing spaces
+
+    // do it for the song artist too, just to be safe
+    songArtist = songArtist.replace(/\s+$/, "");
 
     // get the score details table
     let musicDetailTable = doc.getElementById("music_detail_table");
@@ -188,6 +194,7 @@
       lamp: lamp,
       matchType: "songTitle",
       identifier: songTitle,
+      artist: songArtist,
       difficulty: getDifficulty(url),
       timeAchieved: timeAchieved,
     };
