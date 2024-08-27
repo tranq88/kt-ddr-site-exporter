@@ -245,7 +245,7 @@
     const minutes = String(now.getMinutes()).padStart(2, "0");
     const seconds = String(now.getSeconds()).padStart(2, "0");
 
-    return `${year}-${month}-${day}_${hours}-${minutes}-${seconds}`;
+    return `${year}${month}${day}_${hours}${minutes}${seconds}`;
   }
   /**
    * Collect all scores on the play-data pages of the specified version and playtype
@@ -298,7 +298,7 @@
     );
 
     const timestamp = getFormattedDateTime();
-    const fileName = `ddr-export_${playtype}_${timestamp}.json`;
+    const fileName = `${timestamp}_ddr-export_${playtype}.json`;
 
     const a = document.createElement("a");
     a.href = url;
