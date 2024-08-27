@@ -235,7 +235,18 @@
       }
     }
   }
+  // Helper function to format the current date and time as a string
+  function getFormattedDateTime() {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, "0"); // Months are 0-based
+    const day = String(now.getDate()).padStart(2, "0");
+    const hours = String(now.getHours()).padStart(2, "0");
+    const minutes = String(now.getMinutes()).padStart(2, "0");
+    const seconds = String(now.getSeconds()).padStart(2, "0");
 
+    return `${year}${month}${day}_${hours}${minutes}${seconds}`;
+  }
   /**
    * Collect all scores on the play-data pages of the specified version and playtype
    * and export it into a BATCH-MANUAL JSON.
@@ -286,9 +297,12 @@
       new Blob([batchManual], { type: "application/json" })
     );
 
+    const timestamp = getFormattedDateTime();
+    const fileName = `${timestamp}_ddr-export_${playtype}.json`;
+
     const a = document.createElement("a");
     a.href = url;
-    a.download = "ddr-export.json";
+    a.download = fileName; // use the new fileName whilst downloading :)
     document.body.appendChild(a);
     a.click();
 
